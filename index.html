@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famosteel Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensure image fits within modal */
+            border-radius: 10px;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px; /* Increased height for description */
+            overflow-y: auto; /* Allow scrolling for long descriptions */
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        .modal-content, #caption {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        @media (max-width: 768px) {
+            .close {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
+            }
+            #caption {
+                width: 90%;
+                height: 100px; /* Adjust height for mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md p-4 sticky top-0 z-50 rounded-b-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-900">Famosteel</a>
+            <div class="space-x-4">
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300">About</a>
+                <a href="#gallery" class="text-gray-600 hover:text-blue-600 transition duration-300">Gallery</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 px-4 text-center rounded-b-xl shadow-lg">
+        <div class="container mx-auto">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-down">Welcome to Famosteel</h1>
+            <p class="text-xl md:text-2xl mb-8 animate-fade-in-up">Your trusted partner in steel fabrication and construction.</p>
+            <a href="#gallery" class="bg-white text-blue-600 hover:bg-blue-100 px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition duration-300 transform hover:scale-105">View Our Work</a>
+        </div>
+    </header>
+
+    <!-- About Us Section -->
+    <section id="about" class="container mx-auto py-16 px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">About Us</h2>
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Famosteel is a leading steel fabrication company dedicated to delivering high-quality and durable steel structures. With years of experience, we specialize in a wide range of services including custom metalwork, structural steel, and architectural steel solutions.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Our commitment to excellence, precision engineering, and customer satisfaction sets us apart. We work closely with our clients to bring their visions to life, ensuring every project is completed to the highest standards and on schedule.
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="container mx-auto py-16 px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Our Gallery</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Gallery Item 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300" onclick="openModal('https://placehold.co/600x400/AEC6CF/FFFFFF?text=Project+A', 'Project A: Custom steel gate fabrication, designed for security and aesthetic appeal. Features intricate detailing and robust construction.')">
+                <img src="https://placehold.co/600x400/AEC6CF/FFFFFF?text=Project+A" alt="Project A" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Custom Steel Gate</h3>
+                    <p class="text-gray-600">Click to view details</p>
+                </div>
+            </div>
+            <!-- Gallery Item 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300" onclick="openModal('https://placehold.co/600x400/ADD8E6/FFFFFF?text=Project+B', 'Project B: Structural steel framework for a commercial building. Engineered for maximum strength and durability, meeting all safety standards.')">
+                <img src="https://placehold.co/600x400/ADD8E6/FFFFFF?text=Project+B" alt="Project B" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Building Framework</h3>
+                    <p class="text-gray-600">Click to view details</p>
+                </div>
+            </div>
+            <!-- Gallery Item 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300" onclick="openModal('https://placehold.co/600x400/87CEEB/FFFFFF?text=Project+C', 'Project C: Artistic metal sculpture for public installation. A blend of modern design and traditional craftsmanship.')">
+                <img src="https://placehold.co/600x400/87CEEB/FFFFFF?text=Project+C" alt="Project C" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Metal Sculpture</h3>
+                    <p class="text-gray-600">Click to view details</p>
+                </div>
+            </div>
+            <!-- Gallery Item 4 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300" onclick="openModal('https://placehold.co/600x400/6495ED/FFFFFF?text=Project+D', 'Project D: Industrial staircase fabrication, designed for heavy-duty use and safety in a factory setting. Anti-slip treads included.')">
+                <img src="https://placehold.co/600x400/6495ED/FFFFFF?text=Project+D" alt="Project D" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Industrial Staircase</h3>
+                    <p class="text-gray-600">Click to view details</p>
+                </div>
+            </div>
+            <!-- Gallery Item 5 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300" onclick="openModal('https://placehold.co/600x400/4682B4/FFFFFF?text=Project+E', 'Project E: Custom railings for a residential balcony, combining elegant design with robust safety features. Powder-coated finish for durability.')">
+                <img src="https://placehold.co/600x400/4682B4/FFFFFF?text=Project+E" alt="Project E" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Balcony Railings</h3>
+                    <p class="text-gray-600">Click to view details</p>
+                </div>
+            </div>
+            <!-- Gallery Item 6 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform hover:scale-105 transition duration-300" onclick="openModal('https://placehold.co/600x400/1E90FF/FFFFFF?text=Project+F', 'Project F: Mezzanine floor installation for a warehouse, maximizing storage space. Engineered for heavy loads and easy assembly.')">
+                <img src="https://placehold.co/600x400/1E90FF/FFFFFF?text=Project+F" alt="Project F" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Mezzanine Floor</h3>
+                    <p class="text-gray-600">Click to view details</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Modal/Lightbox -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="bg-gray-900 text-white py-16 px-4 rounded-t-xl shadow-lg">
+        <h2 class="text-4xl font-bold text-center mb-12">Contact Us</h2>
+        <div class="max-w-xl mx-auto text-center space-y-6">
+            <p class="text-lg">Have a project in mind or a question? Feel free to reach out to us!</p>
+            <div class="flex items-center justify-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span class="text-xl font-medium">PHONE: 07 02027134</span>
+            </div>
+            <div class="flex items-center justify-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 4v7a2 2 0 002 2h14a2 2 0 002-2v-7m-18 0h18" />
+                </svg>
+                <span class="text-xl font-medium">EMAIL: FAMOSTEEL21@GMAIL.COM</span>
+            </div>
+            <div class="flex items-center justify-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.275 2.988M2 12h2.252A13.916 13.916 0 004 11a4 4 0 118 0c0 1.017-.07 2.019-.275 2.988M22 12h-2.252A13.916 13.916 0 0020 11a4 4 0 11-8 0c0 1.017-.07 2.019-.275 2.988m-3.44-2.04l.054.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.275 2.988m-3.44-2.04l.054.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.275 2.988" />
+                </svg>
+                <span class="text-xl font-medium">INSTAGRAM: @FAMOSTEEL21</span>
+            </div>
+            <div class="flex items-center justify-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="text-xl font-medium">LOCATION: KIHUNGURO, RUIRU</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-6 px-4 text-center rounded-t-lg">
+        <p>&copy; 2023 Famosteel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+
+        function openModal(imageSrc, description) {
+            modal.style.display = "flex"; // Use flex to center content
+            modalImg.src = imageSrc;
+            captionText.innerHTML = description;
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside the image/caption
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
